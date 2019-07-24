@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  tasks-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cshade/node-tasks-api
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "8082:8082"
+
+  # web:
+  #   # replace username/repo:tag with your name and image details
+  #   image: username/repo:tag
+  #   deploy:
+  #     replicas: 5
+  #     resources:
+  #       limits:
+  #         cpus: "0.1"
+  #         memory: 50M
+  #     restart_policy:
+  #       condition: on-failure
+  #   ports:
+  #     - "4000:80"
+
+# networks:
+#   webnet:
+
