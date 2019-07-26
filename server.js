@@ -150,7 +150,7 @@ router.post('/tasks/update/:id', function(req, res) {
 		console.log(`/tasks/update/` + reqId + ` ORIGINAL:\n`
 			 + JSON.stringify(allTasks[index]));
 
-		taskToUpdate = [];
+		// taskToUpdate = [];
 		const keys = Object.keys(req.body);
 		keys.forEach(key => {
 			taskToUpdate[key] = req.body[key];
