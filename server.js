@@ -77,3 +77,5 @@ const seedDatabase = async () => {
     })
   }
 };
+
+module.exports = app;
