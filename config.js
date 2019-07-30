@@ -1,5 +1,5 @@
 module.exports = {
-  DATABASE_URL: 'mongodb://localhost:27017/tasks',
+  DATABASE_URL: 'mongodb://mongo:27017/tasks',
   APP_PORT: 8082,
   START_DB_CLEAN: true,
   START_DB_SEED: true,
