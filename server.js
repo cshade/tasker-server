@@ -71,9 +71,23 @@ app.get('/api', function (req, res, next) {
 // seed the database with data from the config file
 const seedDatabase = async () => {
   if (config.START_DB_SEED) {
+    // set due dates to recent dates, with a today and tomorrow
+    let mySeeds = config.SEED_DATA;
+    for (var key in mySeeds) {
+      if (mySeeds.hasOwnProperty(key)) {
+        if (mySeeds[key].name == config.SEED_DATA_TODAY_TASK) {
+          mySeeds[key].due = moment()
+        } else if (mySeeds[key].name == config.SEED_DATA_TOMORROW_TASK) {
+          mySeeds[key].due = moment().add(1,'days')
+        } else {
+          mySeeds[key].due = moment().add(-2,'days')
+        }
+      }
+    }
+
     console.log("found START_DB_SEED: now seeding database...");
-    await Task.insertMany(config.SEED_DATA, function (err, tasks) {
-        if (err) { console.log(err) }
+    await Task.insertMany(mySeeds, (err, tasks) => {
+      if (err) { console.log(err) }
     })
   }
 };

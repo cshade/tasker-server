@@ -1,49 +1,51 @@
 module.exports = {
-  DATABASE_URL: 'mongodb://mongo:27017/tasks',
+  DATABASE_URL: 'mongodb://localhost:27017/tasks',
   APP_PORT: 8082,
   START_DB_CLEAN: true,
   START_DB_SEED: true,
+  SEED_DATA_TODAY_TASK: 'Issue 7 cover art?',
+  SEED_DATA_TOMORROW_TASK: "Send interview in next week's newsletter",
   SEED_DATA: [{
-      name: "Call Mom",
-      description: "Call her and say Happy Birthday",
+      name: "Issue 7 cover art?",
+      description: "Where to begin? Get thoughts from editor-at-large and publisher",
       done: false,
       due: "2019-07-22"
       },
       {
-      name: "Vacuum living room",
-      description: "Because it needs it. Check vacuum bag fullness and order more bags if we need them.",
-      done: false,
-      due: "2019-07-22"
-      },
-      {
-      name: "Wash car",
-      description: "Ignore dents while washing. Check tires, too.",
-      done: false,
-      due: "2019-07-22"
-      },
-      {
-      name: "Apply for grant",
-      description: "Figure out how to apply for an NEA grant",
+      name: "Send designer back cover copy",
+      description: "Choose which piece to excerpt on back cover.",
       done: true,
       due: "2019-07-22"
       },
       {
-      name: "Coffee w Jason",
-      description: "Schedule this, and read the book he recommended before we meet.",
+      name: "Make list of grants",
+      description: "And then figure out next steps. How to apply for an NEA grant?",
+      done: false,
+      due: "2019-07-22"
+      },
+      {
+      name: "Next issue guest poetry editor",
+      description: "Confirm pay with publisher and board.",
       done: true,
       due: "2019-07-23"
       },
       {
-      name: "Sign up for fall yoga retreat",
-      description: "Register on the Yoga Shanti website",
+      name: "Send interview in next week's newsletter",
+      description: "Include links to buy latest print issue on our site.",
       done: false,
       due: "2019-07-15"
       },
       {
-      name: "Buy a book",
-      description: "Research this year's best summer reads and order from an indie bookstore.",
+      name: "Review best-of summer reads",
+      description: "Assign to fiction editor and order them the books (from indie bookstore).",
       done: false,
       due: "2019-07-15"
-      }
+      },
+      {
+      name: "Add intern application to site",
+      description: "Announce on social media also, and send link to local universities.",
+      done: false,
+      due: "2019-07-22"
+      },
     ]
 }
