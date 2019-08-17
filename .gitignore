@@ -1,4 +1,5 @@
 # Workspace files are user-specific
+*.sublime-project
 *.sublime-workspace
 
 # Ignore node_modules folder
