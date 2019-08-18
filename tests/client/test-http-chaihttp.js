@@ -1,6 +1,5 @@
 var chai = require("chai"),
     chaiHttp = require("chai-http");
-var Task = require("../../models/task");
 var config = require("../../config");
 
 // Configure chai

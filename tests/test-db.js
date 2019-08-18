@@ -103,27 +103,35 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
         describe("UPDATE and DELETE", () => {
             it("should updateOne task by _id (then findOne)", function(done) {
                 Task.updateOne({ _id: _idUsed }, { name: "apple pie" }, err => {
-                    Task.findOne({ _id: _idUsed }).then(task => {
-                        try {
-                            assert(task.name == "apple pie");
-                            done();
-                        } catch (e) {
-                            done(e);
-                        }
-                    });
+                    if (err) {
+                        done(err);
+                    } else {
+                        Task.findOne({ _id: _idUsed }).then(task => {
+                            try {
+                                assert(task.name == "apple pie");
+                                done();
+                            } catch (e) {
+                                done(e);
+                            }
+                        });
+                    }
                 });
             });
 
             it("should deleteOne task by _id (then findOne)", function(done) {
                 Task.deleteOne({ _id: _idUsed }, err => {
-                    Task.findOne({ _id: _idUsed }).then(task => {
-                        try {
-                            assert(task == null);
-                            done();
-                        } catch (e) {
-                            done(e);
-                        }
-                    });
+                    if (err) {
+                        done(err);
+                    } else {
+                        Task.findOne({ _id: _idUsed }).then(task => {
+                            try {
+                                assert(task == null);
+                                done();
+                            } catch (e) {
+                                done(e);
+                            }
+                        });
+                    }
                 });
             });
         });
