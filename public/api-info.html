@@ -1,17 +1,90 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>API Instructions</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
   </head>
+  <style>
+    #app {
+      font-family: "Avenir", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 20px;
+    }
+
+    h1,
+    h2 {
+      font-weight: normal;
+      margin: 20px 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 5px 10px;
+    }
+
+    a {
+      color: #42b983;
+    }
+
+    .btn {
+      margin: 20px 10px;
+    }
+  </style>
   <body>
-Under /api:
+    <h1>Tasker API Usage</h1>
+    <h2>Under /api/task</h2>
     <ul>
-    <li> /tasks/all to retrieve all tasks </li>
-    <li> /tasks/add to add a new task </li>
-    <li> /tasks/delete/_id_ - for example /tasks/delete/21 to update task with ID of 21 </li>
-    <li> /tasks/update/_id_ - for example /tasks/update/9 to update task with ID of 9
- </li>
-    </ul>  
+      <li>/all to retrieve all tasks</li>
+      <li>/add to add a new task</li>
+      <li>
+        /delete/&lt;_id&gt; -- e.g. /delete/21 to update task with model _id of
+        21
+      </li>
+      <li>
+        /update/&lt;_id&gt; -- e.g. /update/9 to update task with model _id of 9
+      </li>
+      <li>
+        <a href="http://localhost:8082/api/task/all" class="btn btn-primary"
+          >Get /task/all</a
+        >
+      </li>
+    </ul>
+    <h2>Under /api/reminder</h2>
+    <ul>
+      <li>/all to retrieve all reminders</li>
+      <li>/add to add a new reminder</li>
+      <li>
+        /delete/&lt;_id&gt; -- e.g. /delete/21 to update reminder with model _id
+        of 21
+      </li>
+      <li>
+        /update/&lt;_id&gt; -- e.g. /update/9 to update reminder with model _id
+        of 9
+      </li>
+      <li>
+        <a href="http://localhost:8082/api/reminder/all" class="btn btn-primary"
+          >Get /reminder/all</a
+        >
+      </li>
+    </ul>
   </body>
 </html>

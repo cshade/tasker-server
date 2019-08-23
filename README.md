@@ -1,8 +1,8 @@
-# Task API
+# Tasker Server
 
-The business logic (microservices) of a simple task management tool, allowing an end user to create, manage and delete tasks using a web interface.
+Tasker is a product management suite under construction for [Cagibi](https://cagibilit.com/). This server component is the microservices JSON-based RESTful API business layer, providing an API for a client UI to create, manage and delete tasks and reminders.
 
-> Together with its separate Tasker UI project, this is a demo of a containerized Node.js, Vue.js, MongoDB, RESTful API microservices application.
+> Together with its separate UI component, this is a demo of a containerized Node.js, Vue.js, MongoDB, RESTful API microservices application.
 
 ## Build and Run
 
@@ -12,43 +12,63 @@ In the project's root directory, run the API in a Docker Compose container:
 docker-compose up
 ```
 
-The API is then available at http://localhost:8082/api/tasks
+The server is then available at http://localhost:8082/api/
 
 The above installs dependencies and builds a new Docker image if it does not already exist. Refer to the docker-compose.yml file, and the Deployment Notes section below.
 
 ## Usage
 
-You can access http://localhost:8082/api/ to output the usage.
+Access http://localhost:8082/api/ to output the usage.
 
 Under `/api`:
 
--   `/tasks/all` to retrieve all tasks
+-   TASKS
+-   `/task/all` to retrieve all tasks
     -   returns JSON of tasks
--   `/tasks/add` to add a new task
+-   `/task/add` to add a new task
     -   returns JSON of all tasks
--   `/tasks/delete/<id>` - for example `/tasks/delete/21` to update task with ID of 21
+-   `/task/delete/<id>` - for example `/task/delete/21` to update task with ID of 21
     -   returns JSON of all tasks
--   `/tasks/update/<id>` - for example `/tasks/update/9` to update task with ID of 9
+-   `/task/update/<id>` - for example `/task/update/9` to update task with ID of 9
     -   returns JSON of all tasks
+-   REMINDERS
+-   `/reminder/all` to retrieve all reminders
+    -   returns JSON of reminders
+-   `/reminder/add` to add a new reminder
+    -   returns JSON of all reminders
+-   `/reminder/delete/<id>` - e.g. `/reminder/delete/21` to update reminder with ID of 21
+    -   returns JSON of all reminders
+-   `/reminder/update/<id>` - e.g. `/reminder/update/9` to update reminder with ID of 9
+    -   returns JSON of all reminders
 
 ### Persistence
 
-Data storage in [MongoDB](https://www.mongodb.com/) using a Task model.
+Data storage in [MongoDB](https://www.mongodb.com/) using [Mongoose.js](https://mongoosejs.com/) models of Task and Reminder.
 
 ### Initial Data Set
 
-On startup the API database is cleared and then pre-populated with a handful of initial tasks. The seed data is pulled from the config.js SEED_DATA value.
+On startup the API database is cleared and then pre-populated with a handful of initial data. The seed data is pulled from the config.js SEED*DATA value. Refer to the SEED_DATA*\* values in config.js.
 
 The control for this are the config.js values of START_DB_CLEAN and START_DB_SEED.
 
-### Task Data Definition
+### Data Definitions
 
-The unique identifier of a task is its `_id` value which is created and managed by MongoDB.
+The unique identifier of each model is its `_id` value which is created and managed by MongoDB.
 
+#### Task
+
+-   `_id`
 -   `name`: String
 -   `description`: String
 -   `done`: Boolean. Indicates whether task has been completed. System-generated initially to false.
 -   `due`: Date
+
+#### Reminder
+
+-   `_id`
+-   `remind`: String. This is the reminder text.
+-   `remindwhen`: Date. Indicates when to be reminded.
+-   `remindonce`: Boolean for future use. Default is true.
 
 ## Built With
 
@@ -79,7 +99,7 @@ There is a linting pretest included in the above (as a pretest entry in package.
 
 Both the front- and back-end projects of this demo are designed to run as multi-container Docker applications, within Docker Compose. Each project has a YAML file `docker-compose.yml` to configure the application's services as well as a Docker config file `Dockerfile`. From within the root directory of the project, you enter the single command of `docker-compose up` to create and start the services from the configuration. If you have made changes (such as to the DATABASE_URL value in config.js), you will likely need to rebuild the services: `docker-compose build --no-cache` and then again `docker-compose up`.
 
-In the absence of Docker, the DATABASE_URL value in config.js may be changed (to point to local MongoDB) and it may be run as follows:
+In the absence of Docker, the DATABASE_URL value in config.js may be changed (to point to local MongoDB) and it may be run as follows. The path in config.js should either be mongodb://mongo:27017/tasker or mongodb://localhost:27017/tasker
 
 ```bash
 # install dependencies
@@ -89,4 +109,4 @@ npm install
 npm start
 ```
 
-And then in this configuration the UI is also available at http://localhost:8082/api/tasks
+And then in this configuration the UI is also available at http://localhost:8082/api/

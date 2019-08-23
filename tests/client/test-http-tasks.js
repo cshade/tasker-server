@@ -7,7 +7,8 @@ chai.use(chaiHttp);
 chai.should();
 
 describe("Task API Tests - OVER HTTP", () => {
-    let dummyNewTask;
+    // don't use the Mongoose model here — we're emulating a client
+    let dummyNewTask; // will be set to res.body[0]
 
     const testTaskBones = [
         {

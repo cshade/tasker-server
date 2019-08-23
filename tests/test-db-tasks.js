@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Task = require("../models/task");
 const assert = require("assert");
 
-describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
+describe("Task API Tests - DATABASE, SCHEMA, MODEL", () => {
     let _idUsed = "null";
 
     const testTaskBones = [
@@ -26,8 +26,8 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
 
     // Before starting tests, create a sandboxed database connection
     // Once a connection is established invoke done()
-    before(function(done) {
-        mongoose.connect("mongodb://localhost:27017/testDatabase", {
+    before(done => {
+        mongoose.connect("mongodb://localhost:27017/testTaskDatabase", {
             useNewUrlParser: true
         });
         const db = mongoose.connection;
@@ -35,15 +35,15 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
             "error",
             console.error.bind(console, "before: Error connecting to db")
         );
-        db.once("open", function() {
+        db.once("open", () => {
             // console.log("before: Established connection to db");
             done();
         });
     });
 
-    describe("Database CRUD Tests - in sandboxed testDatabase", function() {
+    describe("Database CRUD Tests - in sandboxed testTaskDatabase", () => {
         describe("CREATE and READ", () => {
-            it("should create a task", function(done) {
+            it("should create a task", done => {
                 // NOTE: task name and _id are used later in a retrieve test
                 Task.create({ name: "blueberry pie" }, (err, task) => {
                     try {
@@ -58,7 +58,7 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
                 });
             });
 
-            it("should insertMany tasks", function(done) {
+            it("should insertMany tasks", done => {
                 Task.insertMany(testTaskBones, (err, tasks) => {
                     try {
                         assert(tasks.length);
@@ -70,7 +70,7 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
                 });
             });
 
-            it("should retrieve (find) all tasks, with no params", function(done) {
+            it("should retrieve (find) all tasks, with no params", done => {
                 Task.find({}).then(tasks => {
                     // console.log(
                     //     `retrieve _id = ${tasks[0]._id} | name = ${tasks[0].name}`
@@ -85,7 +85,7 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
                 });
             });
 
-            it("should findOne task by _id", function(done) {
+            it("should findOne task by _id", done => {
                 Task.findOne({ _id: _idUsed }).then(task => {
                     // console.log(`retrieve _id = ${task._id} | name = ${task.name}`);
                     // console.log(`retrieve _idUsed = ${_idUsed}`);
@@ -101,7 +101,7 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
         });
 
         describe("UPDATE and DELETE", () => {
-            it("should updateOne task by _id (then findOne)", function(done) {
+            it("should updateOne task by _id (then findOne)", done => {
                 Task.updateOne({ _id: _idUsed }, { name: "apple pie" }, err => {
                     if (err) {
                         done(err);
@@ -118,7 +118,7 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
                 });
             });
 
-            it("should deleteOne task by _id (then findOne)", function(done) {
+            it("should deleteOne task by _id (then findOne)", done => {
                 Task.deleteOne({ _id: _idUsed }, err => {
                     if (err) {
                         done(err);
@@ -138,8 +138,8 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", function() {
     });
 
     //After all tests are finished drop database and close connection
-    after(function(done) {
-        mongoose.connection.db.dropDatabase(function() {
+    after(done => {
+        mongoose.connection.db.dropDatabase(() => {
             mongoose.connection.close(done);
         });
     });

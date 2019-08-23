@@ -30,7 +30,7 @@ taskRouter.route("/add").post(function(req, res) {
 		}
 		console.log("taskRouter.route('/add'): " + JSON.stringify(task));
 		// send back the new set of tasks
-		Task.find({}).then(function(tasks) {
+		Task.find({}).then(tasks => {
 			res.send(tasks);
 			return;
 		});

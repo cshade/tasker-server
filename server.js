@@ -5,6 +5,7 @@ var app = express();
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var taskRouter = require("./routes/tasks");
+var reminderRouter = require("./routes/reminders");
 // configuration defined in config.js
 var config = require("./config");
 const cors = require("cors");
@@ -12,6 +13,7 @@ var path = require("path");
 
 // Task and moment are here in server.js for seed data purposes
 var Task = require("./models/task");
+var Reminder = require("./models/reminder");
 var moment = require("moment");
 
 const connectDb = () => {
@@ -41,7 +43,13 @@ connectDb().then(async () => {
   );
 });
 
+app.use(express.static("public"));
+app.use(express.static("tests"));
+
 app.use("/api/task", taskRouter);
+
+app.use("/api/reminder", reminderRouter);
+
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", `http://${HOST}:${PORT}`);
@@ -79,25 +87,38 @@ app.get("/api", function(req, res, next) {
 // seed the database with data from the config file
 const seedDatabase = async () => {
   if (config.START_DB_SEED) {
+    // Task Data
     // set due dates to recent dates, with a today and tomorrow
-    let mySeeds = config.SEED_DATA;
-    for (var key in mySeeds) {
-      if (Object.prototype.hasOwnProperty.call(mySeeds, "key")) {
-        if (mySeeds[key].name == config.SEED_DATA_TODAY_TASK) {
-          mySeeds[key].due = moment();
-        } else if (mySeeds[key].name == config.SEED_DATA_TOMORROW_TASK) {
-          mySeeds[key].due = moment().add(1, "days");
+    let myTaskSeeds = config.SEED_DATA_TASK;
+    for (var key in myTaskSeeds) {
+      if (Object.prototype.hasOwnProperty.call(myTaskSeeds, "key")) {
+        if (myTaskSeeds[key].name == config.SEED_DATA_TODAY_TASK) {
+          myTaskSeeds[key].due = moment();
+        } else if (myTaskSeeds[key].name == config.SEED_DATA_TOMORROW_TASK) {
+          myTaskSeeds[key].due = moment().add(1, "days");
         } else {
-          mySeeds[key].due = moment().add(-2, "days");
+          myTaskSeeds[key].due = moment().add(-2, "days");
         }
       }
     }
 
-    console.log("found START_DB_SEED: now seeding database...");
-    await Task.insertMany(mySeeds, err => {
+    await Task.insertMany(myTaskSeeds, err => {
       if (err) {
         console.log(err);
       }
+    });
+
+    // Reminder Data
+    // set due dates to recent dates, with a today and tomorrow
+    let myReminderSeeds = config.SEED_DATA_REMINDER;
+    await Reminder.insertMany(myReminderSeeds, err => {
+      if (err) {
+        console.log(err);
+      }
+
+      console.log(
+        "server.js START_DB_SEED: database has been reset with initial data"
+      );
     });
   }
 };
