@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: cshade/node-tasks-api
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=staging
     volumes:
       - ./:/home/node/app
     ports:
@@ -16,7 +16,7 @@ services:
       - mongo
     links:
       - mongo
-      
+
   mongo:
     image: mongo
     ports:

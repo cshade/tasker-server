@@ -17,13 +17,18 @@ var Reminder = require("./models/reminder");
 var moment = require("moment");
 
 const connectDb = () => {
+  console.log(
+    `NODE_ENV = ${process.env.NODE_ENV} | DATABASE_URL = ${config.DATABASE_URL}`
+  );
   return mongoose.connect(config.DATABASE_URL, { useNewUrlParser: true });
 };
 
 connectDb().then(async () => {
-  if (config.START_DB_SEED) {
-    console.log("found START_DB_CLEAN: now clearing database...");
+  console.log(`config.START_DB_CLEAN = ${config.START_DB_CLEAN}`);
+  if (config.START_DB_CLEAN) {
+    console.log("server.js START_DB_CLEAN: Clearing database...");
     await Task.deleteMany({});
+    await Reminder.deleteMany({});
   }
   seedDatabase();
 });
@@ -86,6 +91,7 @@ app.get("/api", function(req, res, next) {
 
 // seed the database with data from the config file
 const seedDatabase = async () => {
+  console.log(`config.START_DB_SEED = ${config.START_DB_SEED}`);
   if (config.START_DB_SEED) {
     // Task Data
     // set due dates to recent dates, with a today and tomorrow
@@ -116,9 +122,7 @@ const seedDatabase = async () => {
         console.log(err);
       }
 
-      console.log(
-        "server.js START_DB_SEED: database has been reset with initial data"
-      );
+      console.log("server.js START_DB_SEED: seeded db with initial data");
     });
   }
 };

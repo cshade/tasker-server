@@ -1,6 +1,8 @@
-module.exports = {
-  DATABASE_URL: "mongodb://localhost:27017/tasker",
-  APP_PORT: 8082,
+const env = process.env.NODE_ENV; // development or staging
+
+const development = {
+  DATABASE_URL: process.env.DEV_DB_URL || "mongodb://localhost:27017/tasker",
+  APP_PORT: parseInt(process.env.DEV_APP_PORT) || 8082,
   START_DB_CLEAN: true,
   START_DB_SEED: true,
   SEED_DATA_TODAY_TASK: "Issue 7 cover art?",
@@ -68,3 +70,17 @@ module.exports = {
     }
   ]
 };
+
+const staging = {
+  DATABASE_URL: process.env.STAGE_DB_URL || "mongodb://mongo:27017/tasker",
+  APP_PORT: parseInt(process.env.STAGE_APP_PORT) || 8082,
+  START_DB_CLEAN: false,
+  START_DB_SEED: false
+};
+
+const config = {
+  development,
+  staging
+};
+
+module.exports = config[env];

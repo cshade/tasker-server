@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=development node server.js",
+    "start-stage": "NODE_ENV=staging node server.js",
     "test": "mocha tests/ --recursive --exit",
     "pretest": "eslint --ignore-path .gitignore ."
   },
