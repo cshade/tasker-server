@@ -25,6 +25,8 @@ Under `/api`:
 -   TASKS
 -   `/task/all` to retrieve all tasks
     -   returns JSON of tasks
+-   `/task/random` to retrieve a random task
+    -   returns JSON of one task
 -   `/task/add` to add a new task
     -   returns JSON of all tasks
 -   `/task/delete/<id>` - for example `/task/delete/21` to update task with ID of 21
@@ -34,6 +36,8 @@ Under `/api`:
 -   REMINDERS
 -   `/reminder/all` to retrieve all reminders
     -   returns JSON of reminders
+-   `/reminder/random` to retrieve a random reminder
+    -   returns JSON of one reminder
 -   `/reminder/add` to add a new reminder
     -   returns JSON of all reminders
 -   `/reminder/delete/<id>` - e.g. `/reminder/delete/21` to update reminder with ID of 21
