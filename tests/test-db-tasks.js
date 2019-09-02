@@ -71,7 +71,7 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", () => {
             });
 
             it("should retrieve (find) all tasks, with no params", done => {
-                Task.find({}).then(tasks => {
+                Task.find((err, tasks) => {
                     // console.log(
                     //     `retrieve _id = ${tasks[0]._id} | name = ${tasks[0].name}`
                     // );

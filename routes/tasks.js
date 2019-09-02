@@ -15,6 +15,19 @@ taskRouter.route("/all").get(function(req, res) {
 	});
 });
 
+// get one random task from the db
+taskRouter.route("/random").get(function(req, res) {
+	console.log("taskRouter.route('/random')");
+	Task.find((err, tasks) => {
+		if (err) {
+			res.status(400).send("Unable to retrieve tasks from server");
+			return;
+		}
+		res.send(tasks[Math.floor(Math.random() * tasks.length)]);
+		return;
+	});
+});
+
 // create a task
 taskRouter.route("/add").post(function(req, res) {
 	let newTask = {
@@ -30,7 +43,11 @@ taskRouter.route("/add").post(function(req, res) {
 		}
 		console.log("taskRouter.route('/add'): " + JSON.stringify(task));
 		// send back the new set of tasks
-		Task.find({}).then(tasks => {
+		Task.find((err, tasks) => {
+			if (err) {
+				res.status(400).send("Unable to retrieve tasks from server");
+				return;
+			}
 			res.send(tasks);
 			return;
 		});
@@ -47,7 +64,11 @@ taskRouter.route("/delete/:id").delete(function(req, res) {
 		}
 		console.log(`taskRouter.route('/delete/${tempId}')`);
 		// send back the new set of tasks
-		Task.find({}).then(tasks => {
+		Task.find((err, tasks) => {
+			if (err) {
+				res.status(400).send("Unable to retrieve tasks from server");
+				return;
+			}
 			res.send(tasks);
 			return;
 		});
@@ -65,7 +86,11 @@ taskRouter.route("/update/:id").post(function(req, res) {
 		}
 		console.log(`taskRouter.route('/update/${tempId}')`);
 		// send back the new set of tasks
-		Task.find({}).then(tasks => {
+		Task.find((err, tasks) => {
+			if (err) {
+				res.status(400).send("Unable to retrieve tasks from server");
+				return;
+			}
 			res.send(tasks);
 			return;
 		});

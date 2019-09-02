@@ -57,6 +57,22 @@ describe("Reminder API Tests - OVER HTTP", () => {
         });
     });
 
+    describe("GET /api/reminder/random", () => {
+        it("should get a random reminder", done => {
+            chai.request(`http://localhost:${config.APP_PORT}`)
+                .get("/api/reminder/random")
+                .end((err, res) => {
+                    try {
+                        res.should.have.status(200);
+                        res.should.be.json;
+                        done();
+                    } catch (e) {
+                        done(e);
+                    }
+                });
+        });
+    });
+
     describe("POST /api/reminder/update/<_id>", () => {
         it("update reminder; should get all reminders", done => {
             chai.request(`http://localhost:${config.APP_PORT}`)
