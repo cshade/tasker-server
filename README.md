@@ -98,6 +98,7 @@ npm test
 
 The above runs a Mocha + Chai test implementation that makes HTTP calls to assert all API routes are in place and functioning.
 There is a linting pretest included in the above (as a pretest entry in package.json).
+The tests assume MongoDB is running, and for the HTTP calls also this Tasker Server API.
 
 ## Deployment Notes
 

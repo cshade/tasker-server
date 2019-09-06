@@ -82,7 +82,7 @@ app.get("/api", function(req, res, next) {
       "x-sent": true
     }
   };
-  res.sendFile("api-info.html", options, function(err) {
+  res.sendFile("api-info.html", options, err => {
     if (err) {
       next(err);
     }

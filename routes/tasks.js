@@ -3,7 +3,7 @@ var taskRouter = express.Router();
 var Task = require("../models/task");
 
 // get all tasks from the db
-taskRouter.route("/all").get(function(req, res) {
+taskRouter.route("/all").get((req, res) => {
 	console.log("taskRouter.route('/all')");
 	Task.find((err, tasks) => {
 		if (err) {
@@ -16,7 +16,7 @@ taskRouter.route("/all").get(function(req, res) {
 });
 
 // get one random task from the db
-taskRouter.route("/random").get(function(req, res) {
+taskRouter.route("/random").get((req, res) => {
 	console.log("taskRouter.route('/random')");
 	Task.find((err, tasks) => {
 		if (err) {
@@ -29,7 +29,7 @@ taskRouter.route("/random").get(function(req, res) {
 });
 
 // create a task
-taskRouter.route("/add").post(function(req, res) {
+taskRouter.route("/add").post((req, res) => {
 	let newTask = {
 		name: req.body.name,
 		description: req.body.description,
@@ -55,7 +55,7 @@ taskRouter.route("/add").post(function(req, res) {
 });
 
 // a DELETE to delete a task of given "id" value. Returns all tasks.
-taskRouter.route("/delete/:id").delete(function(req, res) {
+taskRouter.route("/delete/:id").delete((req, res) => {
 	var tempId = req.params.id;
 	Task.deleteOne({ _id: tempId }, err => {
 		if (err) {
@@ -77,7 +77,7 @@ taskRouter.route("/delete/:id").delete(function(req, res) {
 
 // a POST to update a task's data, given its "id" value.
 // Returns all tasks.
-taskRouter.route("/update/:id").post(function(req, res) {
+taskRouter.route("/update/:id").post((req, res) => {
 	var tempId = req.params.id;
 	Task.updateOne({ _id: tempId }, req.body, err => {
 		if (err) {
