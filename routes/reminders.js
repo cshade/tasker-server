@@ -40,7 +40,7 @@ reminderRouter.route("/add").post((req, res) => {
 			return;
 		}
 		console.log(
-			"reminderRouter.route('/add'): " + JSON.stringify(reminder)
+			"reminderRouter.route('/add'): " + JSON.stringify(reminder, null, 4)
 		);
 		// send back the new set of reminders
 		Reminder.find((err, reminders) => {

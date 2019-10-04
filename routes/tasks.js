@@ -41,7 +41,9 @@ taskRouter.route("/add").post((req, res) => {
 			res.status(400).send("Unable to create task");
 			return;
 		}
-		console.log("taskRouter.route('/add'): " + JSON.stringify(task));
+		console.log(
+			"taskRouter.route('/add'): " + JSON.stringify(task, null, 4)
+		);
 		// send back the new set of tasks
 		Task.find((err, tasks) => {
 			if (err) {
