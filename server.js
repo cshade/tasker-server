@@ -97,14 +97,18 @@ const seedDatabase = async () => {
     // set due dates to recent dates, with a today and tomorrow
     let myTaskSeeds = config.SEED_DATA_TASK;
     for (var key in myTaskSeeds) {
-      if (Object.prototype.hasOwnProperty.call(myTaskSeeds, "key")) {
-        if (myTaskSeeds[key].name == config.SEED_DATA_TODAY_TASK) {
-          myTaskSeeds[key].due = moment();
-        } else if (myTaskSeeds[key].name == config.SEED_DATA_TOMORROW_TASK) {
-          myTaskSeeds[key].due = moment().add(1, "days");
-        } else {
-          myTaskSeeds[key].due = moment().add(-2, "days");
-        }
+      if (myTaskSeeds[key].name == config.SEED_DATA_TODAY_TASK) {
+        myTaskSeeds[key].due = moment();
+      } else if (myTaskSeeds[key].name == config.SEED_DATA_TOMORROW_TASK) {
+        console.log(
+          `Setting task due tomorrow: ${config.SEED_DATA_TOMORROW_TASK}`
+        );
+        myTaskSeeds[key].due = moment().add(1, "days");
+      } else {
+        console.log(
+          `Setting task due 2 days ago: ${config.SEED_DATA_TOMORROW_TASK}`
+        );
+        myTaskSeeds[key].due = moment().add(-2, "days");
       }
     }
 

@@ -64,8 +64,9 @@ The unique identifier of each model is its `_id` value which is created and mana
 -   `_id`
 -   `name`: String
 -   `description`: String
--   `done`: Boolean. Indicates whether task has been completed. System-generated initially to false.
+-   `done`: Boolean. Indicates whether task has been completed. Forced to initial value of false in /add.
 -   `due`: Date
+-   `labels`: an Array of Strings
 
 #### Reminder
 
@@ -73,6 +74,7 @@ The unique identifier of each model is its `_id` value which is created and mana
 -   `remind`: String. This is the reminder text.
 -   `remindwhen`: Date. Indicates when to be reminded.
 -   `remindonce`: Boolean for future use. Default is true.
+-   `labels`: an Array of Strings
 
 ## Built With
 

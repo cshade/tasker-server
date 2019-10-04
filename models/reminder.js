@@ -12,6 +12,9 @@ var reminderSchema = new mongoose.Schema(
 		remindonce: {
 			type: Boolean,
 			default: true
+		},
+		labels: {
+			type: Array
 		}
 	},
 	{

@@ -15,7 +15,8 @@ describe("Task API Tests - OVER HTTP", () => {
             name: "Buy plane tickets",
             description:
                 "Buy tix to Seattle for holidays, arriving December 18",
-            due: "2019-08-01"
+            due: "2019-08-01",
+            labels: ["issue 7", "travel", "holidays"]
         },
         {
             name: "Eat more fruit",
@@ -88,6 +89,22 @@ describe("Task API Tests - OVER HTTP", () => {
             chai.request(`http://localhost:${config.APP_PORT}`)
                 .post("/api/task/update/" + dummyNewTask._id)
                 .send(dummyNewTask)
+                .end((err, res) => {
+                    try {
+                        res.should.have.status(200);
+                        res.should.be.json;
+                        done();
+                    } catch (e) {
+                        done(e);
+                    }
+                });
+        });
+    });
+
+    describe("GET /api/task/random", () => {
+        it("random task; should return one task", done => {
+            chai.request(`http://localhost:${config.APP_PORT}`)
+                .get("/api/task/random")
                 .end((err, res) => {
                     try {
                         res.should.have.status(200);

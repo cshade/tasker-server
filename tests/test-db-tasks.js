@@ -10,7 +10,8 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", () => {
             name: "Buy plane tickets",
             description:
                 "Buy tix to Seattle for holidays, arriving December 18",
-            due: "2019-08-01"
+            due: "2019-08-01",
+            labels: ["issue 7", "travel", "holidays"]
         },
         {
             name: "Eat more fruit",

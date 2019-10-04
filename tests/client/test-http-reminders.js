@@ -12,7 +12,8 @@ describe("Reminder API Tests - OVER HTTP", () => {
     const testReminderBones = [
         {
             remind: "Reserve table at Brooklyn Book Fest",
-            remindwhen: "2020-06-01"
+            remindwhen: "2020-06-01",
+            labels: ["festival", "books"]
         },
         {
             remind: "Reserve table at CLMP Press Fest",

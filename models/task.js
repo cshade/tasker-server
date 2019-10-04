@@ -13,7 +13,11 @@ var taskSchema = new mongoose.Schema(
       type: Date
     },
     done: {
-      type: Boolean
+      type: Boolean,
+      default: false
+    },
+    labels: {
+      type: Array
     }
   },
   {
