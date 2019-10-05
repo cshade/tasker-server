@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var PORT = config.APP_PORT || 8082;
-var HOST = config.HOST || "0.0.0.0";
+var HOST = config.HOST || "localhost";
 
 connectDb().then(async () => {
   app.listen(PORT, HOST, () =>
@@ -57,7 +57,7 @@ app.use("/api/reminder", reminderRouter);
 
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", `http://${HOST}:${PORT}`);
+  res.setHeader("Access-Control-Allow-Origin", `http://${HOST}:8080`);
   // Request methods you wish to allow
   res.setHeader(
     "Access-Control-Allow-Methods",

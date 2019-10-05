@@ -34,7 +34,8 @@ taskRouter.route("/add").post((req, res) => {
 		name: req.body.name,
 		description: req.body.description,
 		done: false,
-		due: req.body.due
+		due: req.body.due,
+		labels: req.body.labels
 	};
 	Task.create(newTask, (err, task) => {
 		if (err) {

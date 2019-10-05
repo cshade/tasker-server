@@ -32,7 +32,9 @@ reminderRouter.route("/random").get((req, res) => {
 reminderRouter.route("/add").post((req, res) => {
 	let newReminder = {
 		remind: req.body.remind,
-		remindwhen: req.body.remindwhen
+		remindwhen: req.body.remindwhen,
+		remindOnce: req.body.remindOnce,
+		labels: req.body.labels
 	};
 	Reminder.create(newReminder, (err, reminder) => {
 		if (err) {
