@@ -10,6 +10,8 @@ describe("Task API Tests - OVER HTTP", () => {
     // don't use the Mongoose model here — we're emulating a client
     let dummyNewTask; // will be set to res.body[0]
 
+    const testKey = "name";
+
     const testTaskBones = [
         {
             name: "Buy plane tickets",
@@ -53,8 +55,17 @@ describe("Task API Tests - OVER HTTP", () => {
                 .send(testTaskBones[0])
                 .end((err, res) => {
                     try {
+                        // console.log(
+                        //     `/add res.body[0] = ${JSON.stringify(
+                        //         res.body[0],
+                        //         null,
+                        //         4
+                        //     )}`
+                        // );
                         res.should.have.status(200);
                         res.should.be.json;
+                        res.body[0].should.have.property(testKey);
+                        res.body[0].name.should.equal(testTaskBones[0].name);
                         done();
                     } catch (e) {
                         done(e);
@@ -69,12 +80,13 @@ describe("Task API Tests - OVER HTTP", () => {
                 .get("/api/task/all")
                 .end((err, res) => {
                     // console.log(
-                    //     `get all res.body[0] = ${JSON.stringify(res.body[0])}`
+                    //     `get all res.body[0] = ${JSON.stringify(res.body[0], null, 4)}`
                     // );
                     dummyNewTask = res.body[0];
                     try {
                         res.should.have.status(200);
                         res.should.be.json;
+                        res.body[0].should.have.property(testKey);
                         done();
                     } catch (e) {
                         done(e);

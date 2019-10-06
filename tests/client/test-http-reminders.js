@@ -9,6 +9,8 @@ chai.should();
 describe("Reminder API Tests - OVER HTTP", () => {
     let dummyNewReminder; // will be set to res.body[0]
 
+    const testKey = "remind";
+
     const testReminderBones = [
         {
             remind: "Reserve table at Brooklyn Book Fest",
@@ -28,8 +30,19 @@ describe("Reminder API Tests - OVER HTTP", () => {
                 .send(testReminderBones[0])
                 .end((err, res) => {
                     try {
+                        // console.log(
+                        //     `/add res.body[0] = ${JSON.stringify(
+                        //         res.body[0],
+                        //         null,
+                        //         4
+                        //     )}`
+                        // );
                         res.should.have.status(200);
                         res.should.be.json;
+                        res.body[0].should.have.property(testKey);
+                        res.body[0].remind.should.equal(
+                            testReminderBones[0].remind
+                        );
                         done();
                     } catch (e) {
                         done(e);
@@ -44,12 +57,13 @@ describe("Reminder API Tests - OVER HTTP", () => {
                 .get("/api/reminder/all")
                 .end((err, res) => {
                     // console.log(
-                    //     `get all res.body[0] = ${JSON.stringify(res.body[0])}`
+                    //     `get all res.body[0] = ${JSON.stringify(res.body[0], null, 4)}`
                     // );
                     dummyNewReminder = res.body[0];
                     try {
                         res.should.have.status(200);
                         res.should.be.json;
+                        res.body[0].should.have.property(testKey);
                         done();
                     } catch (e) {
                         done(e);
