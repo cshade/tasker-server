@@ -57,7 +57,7 @@ app.use("/api/reminder", reminderRouter);
 
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", `http://${HOST}:8080`);
+  res.setHeader("Access-Control-Allow-Origin", `http://${HOST}:${PORT}`);
   // Request methods you wish to allow
   res.setHeader(
     "Access-Control-Allow-Methods",
