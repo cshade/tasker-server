@@ -40,9 +40,7 @@ describe("Reminder API Tests - OVER HTTP", () => {
                         res.should.have.status(200);
                         res.should.be.json;
                         res.body[0].should.have.property(testKey);
-                        res.body[0].remind.should.equal(
-                            testReminderBones[0].remind
-                        );
+                        res.body[0].remind.should.include(testReminderBones[0].remind);
                         done();
                     } catch (e) {
                         done(e);
