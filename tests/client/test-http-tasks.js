@@ -65,7 +65,7 @@ describe("Task API Tests - OVER HTTP", () => {
                         res.should.have.status(200);
                         res.should.be.json;
                         res.body[0].should.have.property(testKey);
-                        res.body[0].name.should.include(testTaskBones[0].name);
+                        // TO DO: assert testTaskBones[0] is in response data
                         done();
                     } catch (e) {
                         done(e);

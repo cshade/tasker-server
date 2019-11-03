@@ -31,8 +31,8 @@ describe("Reminder API Tests - OVER HTTP", () => {
                 .end((err, res) => {
                     try {
                         // console.log(
-                        //     `/add res.body[0] = ${JSON.stringify(
-                        //         res.body[0],
+                        //     `/add res.body = ${JSON.stringify(
+                        //         res.body,
                         //         null,
                         //         4
                         //     )}`
@@ -40,7 +40,7 @@ describe("Reminder API Tests - OVER HTTP", () => {
                         res.should.have.status(200);
                         res.should.be.json;
                         res.body[0].should.have.property(testKey);
-                        res.body[0].remind.should.include(testReminderBones[0].remind);
+                        // TO DO: assert testReminderBones[0] is in response data
                         done();
                     } catch (e) {
                         done(e);
