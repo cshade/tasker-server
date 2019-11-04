@@ -12,6 +12,7 @@ describe("Task API Tests - OVER HTTP", () => {
 
     const testKey = "name";
 
+    // only using [0] position for now
     const testTaskBones = [
         {
             name: "Buy plane tickets",
@@ -65,7 +66,17 @@ describe("Task API Tests - OVER HTTP", () => {
                         res.should.have.status(200);
                         res.should.be.json;
                         res.body[0].should.have.property(testKey);
-                        // TO DO: assert testTaskBones[0] is in response data
+                        // assert testTaskBones[0] is in response data
+                        let tempVal;
+                        let assertResult = false;
+                        for (var i = 0; i < res.body.length; i++) {
+                            tempVal = res.body[i].name;
+                            console.log("DEBUG /add : " + i + ", " + tempVal);
+                            if (tempVal == testTaskBones[0].name) {
+                                assertResult = true;
+                            }
+                        }
+                        assertResult.should.equal(true);
                         done();
                     } catch (e) {
                         done(e);
@@ -103,6 +114,8 @@ describe("Task API Tests - OVER HTTP", () => {
                 .send(dummyNewTask)
                 .end((err, res) => {
                     try {
+                        // reset dummyNewTask from latest
+                        dummyNewTask = res.body[0];
                         res.should.have.status(200);
                         res.should.be.json;
                         done();
@@ -134,14 +147,60 @@ describe("Task API Tests - OVER HTTP", () => {
             chai.request(`http://localhost:${config.APP_PORT}`)
                 .delete("/api/task/delete/" + dummyNewTask._id)
                 .end((err, res) => {
+                    // console.log(
+                    //     `/delete res.body = ${JSON.stringify(
+                    //         res.body,
+                    //         null,
+                    //         4
+                    //     )}`
+                    // );
                     try {
                         res.should.have.status(200);
                         res.should.be.json;
+                        // assert dummyNewTask._id is NOT in response data
+                        let tempVal;
+                        let assertResult = true; // assume it's not here
+                        for (var i = 0; i < res.body.length; i++) {
+                            tempVal = res.body[i]._id;
+                            console.log(
+                                `DEBUG /delete : ${i}, ${tempVal}, ${res.body[i].name}`
+                            );
+                            if (tempVal == dummyNewTask._id) {
+                                assertResult = false;
+                            }
+                        }
+                        assertResult.should.equal(true);
                         done();
                     } catch (e) {
                         done(e);
                     }
                 });
         });
+    });
+
+    //After all tests are finished, check for leftovers in database
+    after(done => {
+        chai.request(`http://localhost:${config.APP_PORT}`)
+            .get("/api/task/all")
+            .end((err, res) => {
+                // console.log(
+                //     `get all res.body[0] = ${JSON.stringify(res.body[0], null, 4)}`
+                // );
+                try {
+                    let tempVal;
+                    for (var i = 0; i < res.body.length; i++) {
+                        tempVal = res.body[i].name;
+                        if (tempVal == testTaskBones[0].name) {
+                            // console.log(`DEBUG /after :  ${i}, ${tempVal}`);
+                            chai.request(`http://localhost:${config.APP_PORT}`)
+                                .delete("/api/task/delete/" + res.body[i]._id)
+                                .end();
+                        }
+                    }
+                    done();
+                } catch (e) {
+                    done(e);
+                }
+            });
     });
 });
