@@ -71,7 +71,9 @@ describe("Task API Tests - OVER HTTP", () => {
                         let assertResult = false;
                         for (var i = 0; i < res.body.length; i++) {
                             tempVal = res.body[i].name;
-                            console.log("DEBUG /add : " + i + ", " + tempVal);
+                            // console.log(
+                            //     "DEBUG /task/add : " + i + ", " + tempVal
+                            // );
                             if (tempVal == testTaskBones[0].name) {
                                 assertResult = true;
                             }
@@ -162,9 +164,9 @@ describe("Task API Tests - OVER HTTP", () => {
                         let assertResult = true; // assume it's not here
                         for (var i = 0; i < res.body.length; i++) {
                             tempVal = res.body[i]._id;
-                            console.log(
-                                `DEBUG /delete : ${i}, ${tempVal}, ${res.body[i].name}`
-                            );
+                            // console.log(
+                            //     `DEBUG /task/delete : ${i}, ${tempVal}, ${res.body[i].name}`
+                            // );
                             if (tempVal == dummyNewTask._id) {
                                 assertResult = false;
                             }
@@ -183,15 +185,21 @@ describe("Task API Tests - OVER HTTP", () => {
         chai.request(`http://localhost:${config.APP_PORT}`)
             .get("/api/task/all")
             .end((err, res) => {
-                // console.log(
-                //     `get all res.body[0] = ${JSON.stringify(res.body[0], null, 4)}`
-                // );
+                console.log(
+                    `INFO /after /task/all remaining in db = ${JSON.stringify(
+                        res.body,
+                        null,
+                        4
+                    )}`
+                );
                 try {
                     let tempVal;
                     for (var i = 0; i < res.body.length; i++) {
                         tempVal = res.body[i].name;
                         if (tempVal == testTaskBones[0].name) {
-                            // console.log(`DEBUG /after :  ${i}, ${tempVal}`);
+                            console.log(
+                                `DEBUG task /after deleting :  ${i}, ${tempVal}`
+                            );
                             chai.request(`http://localhost:${config.APP_PORT}`)
                                 .delete("/api/task/delete/" + res.body[i]._id)
                                 .end();

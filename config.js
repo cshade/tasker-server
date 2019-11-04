@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV; // development or staging
 
 const development = {
   DATABASE_URL: process.env.DEV_DB_URL || "mongodb://localhost:27017/tasker",
+  CONNECTION_POOL_SIZE: 3,
   APP_PORT: parseInt(process.env.DEV_APP_PORT) || 8082,
   START_DB_CLEAN: true,
   START_DB_SEED: true,

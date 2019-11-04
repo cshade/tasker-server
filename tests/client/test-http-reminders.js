@@ -33,7 +33,7 @@ describe("Reminder API Tests - OVER HTTP", () => {
                 .end((err, res) => {
                     try {
                         // console.log(
-                        //     `/add res.body = ${JSON.stringify(
+                        //     `INFO /reminder/all remaining = ${JSON.stringify(
                         //         res.body,
                         //         null,
                         //         4
@@ -47,7 +47,9 @@ describe("Reminder API Tests - OVER HTTP", () => {
                         let assertResult = false;
                         for (var i = 0; i < res.body.length; i++) {
                             tempVal = res.body[i].remind;
-                            console.log("DEBUG /add : " + i + ", " + tempVal);
+                            // console.log(
+                            //     "DEBUG /reminder/add : " + i + ", " + tempVal
+                            // );
                             if (tempVal == testReminderBones[0].remind) {
                                 assertResult = true;
                             }
@@ -137,9 +139,9 @@ describe("Reminder API Tests - OVER HTTP", () => {
                         let assertResult = true; // assume it's not here
                         for (var i = 0; i < res.body.length; i++) {
                             tempVal = res.body[i]._id;
-                            console.log(
-                                `DEBUG /delete : ${i}, ${tempVal}, ${res.body[i].remind}`
-                            );
+                            // console.log(
+                            //     `DEBUG /reminder/delete : ${i}, ${tempVal}, ${res.body[i].remind}`
+                            // );
                             if (tempVal == dummyNewReminder._id) {
                                 assertResult = false;
                             }
@@ -158,15 +160,21 @@ describe("Reminder API Tests - OVER HTTP", () => {
         chai.request(`http://localhost:${config.APP_PORT}`)
             .get("/api/reminder/all")
             .end((err, res) => {
-                // console.log(
-                //     `get all res.body[0] = ${JSON.stringify(res.body[0], null, 4)}`
-                // );
+                console.log(
+                    `INFO /after /reminder/all remaining in db = ${JSON.stringify(
+                        res.body,
+                        null,
+                        4
+                    )}`
+                );
                 try {
                     let tempVal;
                     for (var i = 0; i < res.body.length; i++) {
                         tempVal = res.body[i].remind;
                         if (tempVal == testReminderBones[0].remind) {
-                            // console.log(`DEBUG /after :  ${i}, ${tempVal}`);
+                            console.log(
+                                `DEBUG reminder /after deleting :  ${i}, ${tempVal}`
+                            );
                             chai.request(`http://localhost:${config.APP_PORT}`)
                                 .delete(
                                     "/api/reminder/delete/" + res.body[i]._id

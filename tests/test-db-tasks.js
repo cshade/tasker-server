@@ -42,6 +42,20 @@ describe("Task API Tests - DATABASE, SCHEMA, MODEL", () => {
         });
     });
 
+    // // TO DO
+    // describe("Database Configurations"),
+    //     async () => {
+    //         it("should have connection poolSize of 4 (dev env)"),
+    //             () => {
+    //                 const {
+    //                     poolSize,
+    //                     wtimeout
+    //                 } = mongoose.connection.s.db.serverConfig.s.options;
+    //                 assert.equal(poolSize, 4);
+    //                 assert.equal(wtimeout, 2500);
+    //             };
+    //     };
+
     describe("Database CRUD Tests - in sandboxed testTaskDatabase", () => {
         describe("CREATE and READ", () => {
             it("should create a task", done => {

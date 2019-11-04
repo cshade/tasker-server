@@ -20,15 +20,29 @@ const connectDb = () => {
   console.log(
     `NODE_ENV = ${process.env.NODE_ENV} | DATABASE_URL = ${config.DATABASE_URL}`
   );
-  return mongoose.connect(config.DATABASE_URL, { useNewUrlParser: true });
+  return mongoose.connect(config.DATABASE_URL, {
+    poolSize: config.CONNECTION_POOL_SIZE,
+    wtimeout: 2500,
+    useNewUrlParser: true
+  });
 };
 
 connectDb().then(async () => {
   console.log(`config.START_DB_CLEAN = ${config.START_DB_CLEAN}`);
   if (config.START_DB_CLEAN) {
     console.log("server.js START_DB_CLEAN: Clearing database...");
-    await Task.deleteMany({});
-    await Reminder.deleteMany({});
+    try {
+      await Task.deleteMany({});
+      await Reminder.deleteMany({});
+      // await mongoose.connection.collections[
+      //     'tasks', 'reminders'
+      //   ]
+      //   .drop( () => {
+      //     console.log(`MongoDB collections _tasks_ and _reminders_ are dropped`);
+      //   });
+    } catch (err) {
+      console.log(`Error trying to clear database: ${err}`);
+    }
   }
   seedDatabase();
 });
