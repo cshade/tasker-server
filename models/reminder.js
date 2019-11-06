@@ -1,13 +1,18 @@
 var mongoose = require("mongoose");
 
-// Define collection and schema for todo item
+// No secondary indexes are required so far.
+// All the queries rely on the MongoDB _id value.
+// NOTE: For this reason, the connection (in server.js)
+// has autoIndex: false.
 var reminderSchema = new mongoose.Schema(
 	{
 		remind: {
-			type: String
+			type: String,
+			required: true
 		},
 		remindwhen: {
-			type: Date
+			type: Date,
+			default: Date.now
 		},
 		remindonce: {
 			type: Boolean,

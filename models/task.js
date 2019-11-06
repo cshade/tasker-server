@@ -1,16 +1,21 @@
 var mongoose = require("mongoose");
 
-// Define collection and schema for todo item
+// No secondary indexes are required so far.
+// All the queries rely on the MongoDB _id value.
+// NOTE: For this reason, the connection (in server.js)
+// has autoIndex: false.
 var taskSchema = new mongoose.Schema(
   {
     name: {
-      type: String
+      type: String,
+      required: true
     },
     description: {
       type: String
     },
     due: {
-      type: Date
+      type: Date,
+      default: Date.now
     },
     done: {
       type: Boolean,

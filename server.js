@@ -23,7 +23,8 @@ const connectDb = () => {
   return mongoose.connect(config.DATABASE_URL, {
     poolSize: config.CONNECTION_POOL_SIZE,
     wtimeout: 2500,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    autoIndex: false
   });
 };
 
